@@ -1,0 +1,11 @@
+{
+  "name": "notas-rapidas",
+  "private": true,
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev -w backend\" \"npm start -w frontend\"",
+    "build": "npm run build --workspaces",
+    "test": "npm test -w backend && npm test -w frontend"
+  },
+  "devDependencies": { "concurrently": "^9.2.1" }
+}
