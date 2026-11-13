@@ -1,0 +1,28 @@
+{
+  "info": { "name": "Notas Rápidas", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }],
+  "item": [
+    {
+      "name": "Crear nota",
+      "request": {
+        "method": "POST", "url": "{{baseUrl}}/api/notas",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\"titulo\":\"Repasar Angular\",\"contenido\":\"Practicar señales\"}" }
+      },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Creada: 201', () => pm.response.to.have.status(201));",
+        "const nota = pm.response.json();",
+        "pm.test('Campos guardados', () => { pm.expect(nota.titulo).to.eql('Repasar Angular'); pm.expect(nota.contenido).to.eql('Practicar señales'); pm.expect(nota._id).to.be.a('string'); });",
+        "pm.collectionVariables.set('notaId', nota._id);"
+      ] } }]
+    },
+    {
+      "name": "Obtener notas",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/notas" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Listado: 200', () => pm.response.to.have.status(200));",
+        "pm.test('Devuelve la nota creada', () => { const nota = pm.response.json().find(n => n._id === pm.collectionVariables.get('notaId')); pm.expect(nota.titulo).to.eql('Repasar Angular'); pm.expect(nota.contenido).to.eql('Practicar señales'); });"
+      ] } }]
+    }
+  ]
+}
