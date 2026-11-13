@@ -50,6 +50,7 @@ describe('Notas', () => {
     http.expectOne('/api/notas').flush([]);
     await fixture.whenStable();
     const app = fixture.componentInstance;
+    await vi.waitFor(() => expect(app.cargando()).toBe(false));
     app.titulo = nota.titulo;
     app.contenido = nota.contenido;
     const pending = app.guardar();
