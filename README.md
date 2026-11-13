@@ -18,7 +18,7 @@ Abre http://127.0.0.1:4200. Si ya tienes MongoDB local en el puerto 27017, omite
 
 Escribe un título y un contenido y pulsa Guardar. La nota se guarda en MongoDB y aparece en la lista sin recargar la página.
 
-## Notas
+## Notas de uso de la app (practica de redaccion de guia de usuario)
 
 - La API está en http://localhost:3000/api/notas y permite GET y POST.
 - Puedes configurar la conexión copiando `backend/.env.example` a `backend/.env`.
