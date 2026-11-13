@@ -1,0 +1,21 @@
+<main>
+  <h1>Notas Rápidas</h1>
+  <form (ngSubmit)="guardar()">
+    <label for="titulo">Título</label>
+    <input id="titulo" name="titulo" [(ngModel)]="titulo" required [disabled]="guardando()">
+    <label for="contenido">Contenido</label>
+    <input id="contenido" name="contenido" [(ngModel)]="contenido" required [disabled]="guardando()">
+    <button type="submit" [disabled]="cargando() || guardando() || !titulo.trim() || !contenido.trim()">
+      {{ guardando() ? 'Guardando…' : 'Guardar' }}
+    </button>
+  </form>
+  @if (error()) { <p role="alert">{{ error() }}</p> }
+  <section aria-label="Notas guardadas" aria-live="polite">
+    @if (cargando()) { <p>Cargando notas…</p> }
+    @for (nota of servicio.notas(); track nota._id) {
+      <article><h2>{{ nota.titulo }}</h2><p>{{ nota.contenido }}</p></article>
+    } @empty {
+      @if (!cargando() && !error()) { <p>Aún no hay notas. Escribe la primera.</p> }
+    }
+  </section>
+</main>
